@@ -72,7 +72,7 @@ for i=1:size(Daily_Stats,1)
         net.b{2} =  rand(1, 1);
 
         net.trainParam.epochs = 10000;
-        net.trainParam.goal = 10 ^ -3;
+        net.trainParam.goal = 10 ^ -7;
         net.trainParam.time=600;
 
         net = train(net,Training_Input,Training_Output);
@@ -102,7 +102,7 @@ for i=1:size(Daily_Stats,1)
         Cases = Test_Train(2,:)';
         Training = table(Day, Cases);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases_every_3_days\',country_name,'_training.txt');
+        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\',country_name,'_training.txt');
         % Write data to text file
         writetable(Training,filename,'Delimiter',' ');
         
@@ -111,7 +111,7 @@ for i=1:size(Daily_Stats,1)
         Cases = Test_Prediction(2,:)';
         Predictions = table(Day, Cases);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases_every_3_days\',country_name,'_prediction.txt');
+        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\',country_name,'_prediction.txt');
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
@@ -137,7 +137,7 @@ end
 Training_Performance = Performances_Training';
 
 Performance = table(Training_Performance);
-filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases_every_3_days\Performance.txt');
+filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\Performance.txt');
 % Write data to text file
 writetable(Performance,filename,'Delimiter',' ');
 

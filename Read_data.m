@@ -1,7 +1,7 @@
 Data_Basic = readtable('Covid_Data_Basic_converted.csv');
 Data = readtable('Covid_Data_converted.csv');
 Countries = cell(1,1);
-Days = zeros(1);
+Days = ones(191);
 Countries{1} = '';
 previous_country = '';
 current_country = '';
@@ -15,32 +15,34 @@ for i=1:size(Data_Basic,1)
     current_country = char(Data_Basic{i,2});
     current_country = strrep(current_country,'*','');
     current_number_confirmed = Data_Basic{i,4};
-    if strcmp(current_country, previous_country) == 0 && strcmp(previous_country, '') ~= 1;
+    if strcmp(current_country, previous_country) ~= 0 && strcmp(previous_country, '') ~= 1;
         idx = find(ismember(Countries, previous_country));
         if idx
             Stats_at_the_end(idx, 1) = previous_number_confirmed;
-            country_number = idx;
-            day = Days(country_number);
         else
-            day = 1;
             Countries{iter, 1} = previous_country;
             Stats_at_the_end(iter, 1) = previous_number_confirmed; 
             iter = iter + 1;
             country_number = iter;
         end
     end
+    previous_country = current_country;
+    previous_number_confirmed = current_number_confirmed;
+end
+
+for i=1:size(Data_Basic,1)
+    current_country = char(Data_Basic{i,2});
+    current_country = strrep(current_country,'*','');
+    country_number = find(ismember(Countries, current_country));
     Daily_Stats(i,1) = country_number;
-    Daily_Stats(i,2) = day;
+    Daily_Stats(i,2) = Days(country_number);
     Daily_Stats(i,3) = Data_Basic{i,4};
     Daily_Stats(i,4) = Data_Basic{i,5};
     Daily_Stats(i,5) = Data_Basic{i,6};
     Daily_Stats(i,6) = Data_Basic{i,7};
     Daily_Stats(i,7) = Data_Basic{i,8};
     Daily_Stats(i,8) = Data_Basic{i,9};
-    day = day +1;
-    Days(country_number) = day;
-    previous_country = current_country;
-    previous_number_confirmed = current_number_confirmed;
+    Days(country_number) = Days(country_number) + 1;
         
 end
 
