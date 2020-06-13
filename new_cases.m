@@ -101,7 +101,7 @@ for i=1:size(Daily_Stats,1)
         Cases = Test_Train(2,:)';
         Training = table(Day, Cases);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\',country_name,'_training.txt');
+        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\New_cases\',country_name,'_training.txt');
         % Write data to text file
         writetable(Training,filename,'Delimiter',' ');
         
@@ -110,7 +110,7 @@ for i=1:size(Daily_Stats,1)
         Cases = Test_Prediction(2,:)';
         Predictions = table(Day, Cases);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\',country_name,'_prediction.txt');
+        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\New_cases\',country_name,'_prediction.txt');
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
@@ -123,7 +123,7 @@ for i=1:size(Daily_Stats,1)
         Training_Input(1, j) = Daily_Stats(i,1);
         Training_Input(2,j) = Daily_Stats(i,2);
         Training_Output(1,j) = Daily_Stats(i,1);
-        Training_Output(2,j) = Daily_Stats(i,3);
+        Training_Output(2,j) = Daily_Stats(i,6);
         j = j+1;
     end
     previous_country_number = current_country_number;    
@@ -133,7 +133,7 @@ end
 Training_Performance = Performances_Training';
 
 Performance = table(Training_Performance);
-filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\Performance.txt');
+filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\New_cases\Performance.txt');
 % Write data to text file
 writetable(Performance,filename,'Delimiter',' ');
 

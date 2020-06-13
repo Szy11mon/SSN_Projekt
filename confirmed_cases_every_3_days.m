@@ -39,6 +39,7 @@ Performances_Training = zeros(1,1);
 Performances_Prediction = zeros(1,1);
 current_country_number = 1;
 previous_country_number = 1;
+number_of_valid_data = 0;
 
 for i=1:size(Daily_Stats,1)
     current_country_number = Daily_Stats(i,1);
@@ -46,7 +47,7 @@ for i=1:size(Daily_Stats,1)
         
         max_day = Training_Input(2,size(Training_Input,2));
         
-        Test_Days = linspace(max_day, max_day + 75, 76);
+        Test_Days = linspace(max_day, max_day + 75, 26);
         
         for k=1:size(Test_Days,2)
             Covid_Prediction_Input(1,k) = previous_country_number;
@@ -101,7 +102,7 @@ for i=1:size(Daily_Stats,1)
         Cases = Test_Train(2,:)';
         Training = table(Day, Cases);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\',country_name,'_training.txt');
+        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases_every_3_days\',country_name,'_training.txt');
         % Write data to text file
         writetable(Training,filename,'Delimiter',' ');
         
@@ -110,7 +111,7 @@ for i=1:size(Daily_Stats,1)
         Cases = Test_Prediction(2,:)';
         Predictions = table(Day, Cases);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\',country_name,'_prediction.txt');
+        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases_every_3_days\',country_name,'_prediction.txt');
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
@@ -120,11 +121,14 @@ for i=1:size(Daily_Stats,1)
         
     end 
     if Daily_Stats(i,3) >= 10
-        Training_Input(1, j) = Daily_Stats(i,1);
-        Training_Input(2,j) = Daily_Stats(i,2);
-        Training_Output(1,j) = Daily_Stats(i,1);
-        Training_Output(2,j) = Daily_Stats(i,3);
-        j = j+1;
+        if mod(number_of_valid_data,3) == 0 
+            Training_Input(1, j) = Daily_Stats(i,1);
+            Training_Input(2,j) = Daily_Stats(i,2);
+            Training_Output(1,j) = Daily_Stats(i,1);
+            Training_Output(2,j) = Daily_Stats(i,3);
+            j = j+1;
+        end
+        number_of_valid_data = number_of_valid_data + 1;
     end
     previous_country_number = current_country_number;    
 end
@@ -133,7 +137,7 @@ end
 Training_Performance = Performances_Training';
 
 Performance = table(Training_Performance);
-filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases\Performance.txt');
+filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Cases_every_3_days\Performance.txt');
 % Write data to text file
 writetable(Performance,filename,'Delimiter',' ');
 

@@ -1,0 +1,54 @@
+Data_Basic = readtable('Covid_Data_Basic_converted.csv');
+Data = readtable('Covid_Data_converted.csv');
+Countries = cell(1,1);
+Days = zeros(1);
+Countries{1} = '';
+previous_country = '';
+current_country = '';
+current_number_confirmed = 0;
+previous_number_confirmed = 0;
+day = 1;
+country_number = 1;
+iter = 1;
+
+for i=1:size(Data_Basic,1)
+    current_country = char(Data_Basic{i,2});
+    current_number_confirmed = Data_Basic{i,4};
+    if strcmp(current_country, previous_country) == 0 && strcmp(previous_country, '') ~= 1;
+        idx = find(ismember(Countries, current_country));
+        if idx
+            Countries{idx, 1} = previous_country;
+            Stats_at_the_end(idx, 1) = previous_number_confirmed;
+            country_number = idx;
+            day = Days(country_number);
+        else
+            day = 1;
+            Countries{iter, 1} = previous_country;
+            Stats_at_the_end(iter, 1) = previous_number_confirmed; 
+            iter = iter + 1;
+            country_number = iter;
+        end
+    end
+    Daily_Stats(i,1) = country_number;
+    Daily_Stats(i,2) = day;
+    Daily_Stats(i,3) = Data_Basic{i,4};
+    Daily_Stats(i,4) = Data_Basic{i,5};
+    Daily_Stats(i,5) = Data_Basic{i,6};
+    day = day +1;
+    Days(country_number) = day;
+    previous_country = current_country;
+    previous_number_confirmed = current_number_confirmed;
+        
+end
+
+% Dodanie nadmiarowego pola, pozwalaj?cego na analiz? ostatniego
+% alfabetycznie kraju w tabeli w g?ównym programie
+dummy_field_idx = size(Data_Basic,1) + 1;
+
+    Daily_Stats(dummy_field_idx,1) = 1000;
+    Daily_Stats(dummy_field_idx,2) = 1000;
+    Daily_Stats(dummy_field_idx,3) = 1000;
+    Daily_Stats(dummy_field_idx,4) = 1000;
+    Daily_Stats(dummy_field_idx,5) = 1000;
+
+Daily_Stats = sortrows(Daily_Stats,1);
