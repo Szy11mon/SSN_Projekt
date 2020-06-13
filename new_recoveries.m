@@ -120,7 +120,7 @@ for i=1:size(Daily_Stats,1)
         j = 1;
         
     end 
-    if Daily_Stats(i,8) >= 10
+    if Daily_Stats(i,3) >= 10
         if mod(number_of_valid_data,3) == 0 
             Training_Input(1, j) = Daily_Stats(i,1);
             Training_Input(2,j) = Daily_Stats(i,2);
