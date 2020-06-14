@@ -115,12 +115,14 @@ for i=1:size(Daily_Stats,1)
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
-        Training_Input = zeros(2,1);
-        Training_Output = zeros(2,1);
-        j = 1;
         
     end 
-    if Daily_Stats(i,4) >= 10
+        if current_country_number ~= previous_country_number
+            Training_Input = zeros(2,1);
+            Training_Output = zeros(2,1);
+            j = 1;
+        end
+    if Daily_Stats(i,4) >= 12
         if mod(number_of_valid_data,3) == 0 
             Training_Input(1, j) = Daily_Stats(i,1);
             Training_Input(2,j) = Daily_Stats(i,2);

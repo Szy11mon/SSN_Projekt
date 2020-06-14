@@ -43,7 +43,7 @@ number_of_valid_data = 0;
 
 for i=1:size(Daily_Stats,1)
     current_country_number = Daily_Stats(i,1);
-    if current_country_number ~= previous_country_number && size(Training_Input,2) > 2 
+    if current_country_number ~= previous_country_number && size(Training_Input,2) > 2 && previous_country_number ~= 87
         
         max_day = Training_Input(2,size(Training_Input,2));
         
@@ -99,8 +99,8 @@ for i=1:size(Daily_Stats,1)
         % Create a table with the data and variable names
         % T = table(A, B, 'VariableNames', {'Day', 'Cases'} );
         Day = Training_Input(2,:)';
-        Cases = Test_Train(2,:)';
-        Training = table(Day, Cases);
+        Recovered = Test_Train(2,:)';
+        Training = table(Day, Recovered);
         country_name = strrep(country_name,'\',' ');
         filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Recoveries\',country_name,'_training.txt');
         % Write data to text file
@@ -108,19 +108,21 @@ for i=1:size(Daily_Stats,1)
         
         
         Day  = Test_Days';
-        Cases = Test_Prediction(2,:)';
-        Predictions = table(Day, Cases);
+        Recovered = Test_Prediction(2,:)';
+        Predictions = table(Day, Recovered);
         country_name = strrep(country_name,'\',' ');
         filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Recoveries\',country_name,'_prediction.txt');
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
-        Training_Input = zeros(2,1);
-        Training_Output = zeros(2,1);
-        j = 1;
         
     end 
-    if Daily_Stats(i,5) >= 10
+        if current_country_number ~= previous_country_number
+            Training_Input = zeros(2,1);
+            Training_Output = zeros(2,1);
+            j = 1;
+        end
+    if Daily_Stats(i,5) >= 11
         if mod(number_of_valid_data,3) == 0 
             Training_Input(1, j) = Daily_Stats(i,1);
             Training_Input(2,j) = Daily_Stats(i,2);

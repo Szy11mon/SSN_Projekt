@@ -43,7 +43,7 @@ number_of_valid_data = 0;
 
 for i=1:size(Daily_Stats,1)
     current_country_number = Daily_Stats(i,1);
-    if current_country_number ~= previous_country_number && size(Training_Input,2) > 2 
+    if current_country_number ~= previous_country_number && size(Training_Input,2) > 2 && previous_country_number ~= 102 && previous_country_number ~= 163 && previous_country_number ~= 164 && previous_country_number ~= 179
         
         max_day = Training_Input(2,size(Training_Input,2));
         
@@ -115,12 +115,14 @@ for i=1:size(Daily_Stats,1)
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
-        Training_Input = zeros(2,1);
-        Training_Output = zeros(2,1);
-        j = 1;
         
     end 
-    if Daily_Stats(i,3) >= 10
+        if current_country_number ~= previous_country_number
+            Training_Input = zeros(2,1);
+            Training_Output = zeros(2,1);
+            j = 1;
+        end
+    if Daily_Stats(i,3) >= 13
         if mod(number_of_valid_data,3) == 0 
             Training_Input(1, j) = Daily_Stats(i,1);
             Training_Input(2,j) = Daily_Stats(i,2);
