@@ -23,7 +23,7 @@ for i=1:size(Data_Basic,1)
             Countries{iter, 1} = previous_country;
             Stats_at_the_end(iter, 1) = previous_number_confirmed; 
             iter = iter + 1;
-            country_number = iter;
+            % country_number = iter;
         end
     end
     previous_country = current_country;
