@@ -1,5 +1,4 @@
-Day Cases
-50 12
-53 21
-56 29
-59 39
+Day Deaths Previous
+52 20 12
+55 23 20
+58 36 23
