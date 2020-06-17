@@ -1,0 +1,5 @@
+Day Recoveries Previous
+47 40 10
+50 325 40
+53 325 325
+56 325 325
