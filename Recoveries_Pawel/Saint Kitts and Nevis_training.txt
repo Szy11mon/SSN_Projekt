@@ -1,0 +1,6 @@
+Day Recoveries Previous
+48 12 8
+51 14 12
+54 14 14
+57 14 14
+60 14 14

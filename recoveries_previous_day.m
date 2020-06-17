@@ -107,7 +107,7 @@ for i=1:size(Daily_Stats,1)
         Previous = Training_Input(3,:)';
         Training = table(Day, Recoveries, Previous);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Recoveries_3\',country_name,'_training.txt');
+        filename = strcat('C:\Users\Pawe³\Desktop\Studia\Sieci neuronowe\projekt\SSN_Projekt\Recoveries_Pawel\',country_name,'_training.txt');
         % Write data to text file
         writetable(Training,filename,'Delimiter',' ');
         
@@ -116,7 +116,7 @@ for i=1:size(Daily_Stats,1)
         Recoveries = Test_Prediction_Collective(2,:)';
         Predictions = table(Day, Recoveries);
         country_name = strrep(country_name,'\',' ');
-        filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Recoveries_3\',country_name,'_prediction.txt');
+        filename = strcat('C:\Users\Pawe³\Desktop\Studia\Sieci neuronowe\projekt\SSN_Projekt\Recoveries_Pawel\',country_name,'_prediction.txt');
         % Write data to text file
         writetable(Predictions,filename,'Delimiter',' ');
         
@@ -145,7 +145,7 @@ end
 Training_Performance = Performances_Training';
 
 Performance = table(Training_Performance);
-filename = strcat('E:\AGH\SSN\Projekt\SSN_Projekt\Recoveries_3\Performance.txt');
+filename = strcat('C:\Users\Pawe³\Desktop\Studia\Sieci neuronowe\projekt\SSN_Projekt\Recoveries_Pawel\');
 % Write data to text file
 writetable(Performance,filename,'Delimiter',' ');
 

@@ -1,0 +1,4 @@
+Day Deaths Previous
+52 20 12
+55 23 20
+58 36 23
